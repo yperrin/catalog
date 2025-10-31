@@ -1,0 +1,14 @@
+// .gemini/settings.json (in your Nx workspace root)
+{
+  "mcpServers": {
+    "nx-mcp": {
+      "command": "npx",
+      "args": ["nx", "mcp"],
+      "cwd": "./",
+      "env": {
+        // This is optional but can be helpful for debugging
+        "NX_DAEMON": "false"
+      }
+    }
+  }
+}
