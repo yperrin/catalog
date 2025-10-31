@@ -31,11 +31,11 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-- **I. Clear Data Ownership**: Does the design clearly define the source service for each domain?
-- **II. Traceable Chain of Custody**: Is the entire lifecycle of a domain auditable?
-- **III. Service-Centric View**: Can we easily see all domains a service interacts with?
-- **IV. Domain-Centric View**: Can we easily see the entire service chain for a domain?
-- **V. Extensibility**: Can new domains and services be added without major refactoring?
+- **I. Clear Visual Representation**: Does the plan include a clear strategy for visualizing domain-service relationships?
+- **II. Bidirectional Traceability**: Does the design allow for tracing dependencies from domains to services and vice-versa?
+- **III. Data Integrity and Uniqueness**: How will the system enforce uniqueness of domains and services?
+- **IV. Architectural Insight**: Does the plan facilitate understanding the service architecture and impact of changes?
+- **V. Extensibility and Modularity**: Is the proposed architecture modular and easily extensible for new domains and services?
 
 ## Project Structure
 

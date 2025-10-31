@@ -18,6 +18,13 @@ description: "Task list template for feature implementation"
 - **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
 - Include exact file paths in descriptions
 
+**Constitutional Alignment**: When creating tasks, ensure they align with the project constitution's principles:
+- **I. Clear Visual Representation**
+- **II. Bidirectional Traceability**
+- **III. Data Integrity and Uniqueness**
+- **IV. Architectural Insight**
+- **V. Extensibility and Modularity**
+
 ## Path Conventions
 
 - **Single project**: `src/`, `tests/` at repository root

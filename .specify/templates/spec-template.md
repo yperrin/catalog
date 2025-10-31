@@ -75,6 +75,14 @@
 - What happens when [boundary condition]?
 - How does system handle [error scenario]?
 
+## Constitutional Alignment *(mandatory)*
+
+- **I. Clear Visual Representation**: How will this feature contribute to or utilize the graph-based visualization of services?
+- **II. Bidirectional Traceability**: Does this feature enhance or depend on the ability to trace dependencies between domains and services?
+- **III. Data Integrity and Uniqueness**: What measures will be taken to ensure data integrity and uniqueness within this feature?
+- **IV. Architectural Insight**: How does this feature provide or leverage architectural insights?
+- **V. Extensibility and Modularity**: Is the feature designed in a modular way that supports future extensions?
+
 ## Requirements *(mandatory)*
 
 <!--
