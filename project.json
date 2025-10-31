@@ -13,7 +13,7 @@
       "options": {
         "outputPath": "dist/catalog",
         "browser": "./src/main.ts",
-        "polyfills": [],
+        "polyfills": ["zone.js"],
         "tsConfig": "tsconfig.app.json",
         "assets": [
           {
