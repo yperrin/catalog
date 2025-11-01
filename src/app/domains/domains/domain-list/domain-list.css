@@ -17,13 +17,22 @@ li {
   border: 1px solid #ddd;
 }
 
+li mat-icon {
+  vertical-align: middle;
+}
+
 .division {
   color: #666;
   font-size: 0.9em;
+  margin-right: 8px;
 }
 
 .filters {
   display: flex;
   gap: 20px;
   margin-bottom: 20px;
+}
+
+li a {
+  text-decoration: none;
 }

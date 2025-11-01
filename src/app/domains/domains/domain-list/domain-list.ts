@@ -4,15 +4,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
-import { DomainService } from '../../../shared/services/domain.service';
-import { DivisionService } from '../../../shared/services/division.service';
+import { DomainService } from '../../shared/services/domain.service';
+import { DivisionService } from '../../shared/services/division.service';
 
 @Component({
   selector: 'app-domain-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatIconModule, RouterModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatTooltipModule, RouterModule],
   templateUrl: './domain-list.html',
   styleUrl: './domain-list.css',
 })

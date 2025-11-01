@@ -2,7 +2,8 @@
   <div class="filters">
     <mat-form-field>
       <mat-label>Filter by name</mat-label>
-      <input matInput type="text" [ngModel]="filterText()" (ngModelChange)="filterText.set($event)" placeholder="Enter domain name to filter" />
+      <input matInput type="text" [ngModel]="filterText()" (ngModelChange)="filterText.set($event)"
+        placeholder="Enter domain name to filter" />
     </mat-form-field>
 
     <mat-form-field>
@@ -29,10 +30,13 @@
   @for (domain of filteredDomains(); track domain.name) {
   <ul>
     <li>
-      {{ domain.name }} 
-      <a *ngIf="domain.dataFlowFile" [routerLink]="['/domain-flow', domain.name]">
-        <mat-icon>timeline</mat-icon>
+      @if (domain.dataFlowFile) {
+      <a [routerLink]="['/domain-flow', domain.name]" matTooltip="View the list of services the domain goes through">
+        {{ domain.name }}
       </a>
+      } @else {
+        {{ domain.name }}
+      }
       <span class="division">({{ domain.division }} / {{ domain['sub-division'] }})</span>
       <br>
       {{ domain.description }}

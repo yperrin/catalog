@@ -1,7 +1,7 @@
 import { Component, inject, signal, computed, effect, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DomainService } from '../../../shared/services/domain.service';
-import { DataFlowService, DataFlow } from '../../../shared/services/data-flow.service';
+import { DomainService } from '../../shared/services/domain.service';
+import { DataFlowService, DataFlow } from '../../shared/services/data-flow.service';
 import * as d3 from 'd3';
 
 @Component({
@@ -11,7 +11,7 @@ import * as d3 from 'd3';
   templateUrl: './domain-flow.html',
   styleUrl: './domain-flow.css',
 })
-export class DomainFlowComponent {
+export class DomainFlow {
   private route = inject(ActivatedRoute);
   private domainService = inject(DomainService);
   private dataFlowService = inject(DataFlowService);

@@ -1,0 +1,80 @@
+/* Basic styling for the service view component */
+
+:host {
+  display: block;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #333;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: #555;
+  font-size: 1.5em;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Styles for loading and error messages */
+.loading-message,
+.error-message {
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.loading-message {
+  background-color: #e0f7fa;
+  color: #007bff;
+  border: 1px solid #007bff;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #d32f2f;
+  border: 1px solid #d32f2f;
+}
