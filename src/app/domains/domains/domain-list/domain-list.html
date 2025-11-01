@@ -1,0 +1,18 @@
+<div>
+  <h2>Domain List</h2>
+  <input type="text" [(ngModel)]="filterText" placeholder="Filter by name" />
+  <div *ngIf="filteredDomains.length > 0; else noFilteredDomains">
+    <ul>
+      <li *ngFor="let domain of filteredDomains">
+        {{ domain.name }} - {{ domain.description }}
+      </li>
+    </ul>
+  </div>
+  <ng-template #noFilteredDomains>
+    <p>No matching domains found.</p>
+  </ng-template>
+</div>
+
+<ng-template #noDomains>
+  <p>No domains found.</p>
+</ng-template>
