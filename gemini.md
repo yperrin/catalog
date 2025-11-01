@@ -97,7 +97,7 @@ Angular — Deliver web apps with confidence 🚀
 - [Binding text, properties and attributes](https://angular.dev/guide/templates/binding)
 - [Control Flow](https://angular.dev/guide/templates/control-flow)
 - [Template variable declaration](https://angular.dev/guide/templates/variables)
-- [Deferred loading of components](https://angular.dev/guide/templates/defer) 
+- [Deferred loading of components](https://angular.dev/guide/templates/defer)
 - [Expression syntax](https://angular.dev/guide/templates/expression-syntax)
 
 ## Directives
@@ -108,7 +108,7 @@ Angular — Deliver web apps with confidence 🚀
 - [Directive composition](https://angular.dev/guide/directives/directive-composition-api)
 - [Optimizing images](https://angular.dev/guide/image-optimization)
 
-## Signals 
+## Signals
 
 - [Signals overview](https://angular.dev/guide/signals)
 - [Dependent state with linkedSignal](https://angular.dev/guide/signals/linked-signal)
@@ -124,7 +124,7 @@ Angular — Deliver web apps with confidence 🚀
 - [Hierarchical injectors](https://angular.dev/guide/di/hierarchical-dependency-injection)
 - [Optimizing Injection tokens](https://angular.dev/guide/di/lightweight-injection-tokens)
 
-## RxJS 
+## RxJS
 
 - [RxJS interop with Angular signals](https://angular.dev/ecosystem/rxjs-interop)
 - [Component output interop](https://angular.dev/ecosystem/rxjs-interop/output-interop)
@@ -138,6 +138,7 @@ Angular — Deliver web apps with confidence 🚀
 - [Testing](https://angular.dev/guide/http/testing)
 
 ## Forms
+
 - [Forms overview](https://angular.dev/guide/forms)
 - [Reactive Forms](https://angular.dev/guide/forms/reactive-forms)
 - [Strictly types forms](https://angular.dev/guide/forms/typed-forms)
@@ -146,6 +147,7 @@ Angular — Deliver web apps with confidence 🚀
 - [Building dynamic forms](https://angular.dev/guide/forms/dynamic-forms)
 
 ## Routing
+
 - [Routing overview](https://angular.dev/guide/routing)
 - [Define routes](https://angular.dev/guide/routing/define-routes)
 - [Show routes with outlets](https://angular.dev/guide/routing/show-routes-with-outlets)
@@ -163,7 +165,8 @@ Angular — Deliver web apps with confidence 🚀
 - [Hydration](https://angular.dev/guide/hydration)
 - [Incremental Hydration](https://angular.dev/guide/incremental-hydration)
 
-# CLI 
+# CLI
+
 [Angular CLI Overview](https://angular.dev/tools/cli)
 
 ## Testing
@@ -182,14 +185,15 @@ Angular — Deliver web apps with confidence 🚀
 - [Creating a component harness for your components](https://angular.dev/guide/testing/creating-component-harnesses)
 
 ## Animations
+
 - [Animations your content](https://angular.dev/guide/animations/css)
 - [Route transition animation](https://angular.dev/guide/routing/route-transition-animations)
 - [Migrating to native CSS animations](https://next.angular.dev/guide/animations/migration)
 
 ## APIs
+
 - [API reference](https://angular.dev/api)
 - [CLI command reference](https://angular.dev/cli)
-
 
 ## Others
 
@@ -202,3 +206,26 @@ Angular — Deliver web apps with confidence 🚀
 - [Keeping your projects up-to-date](https://angular.dev/update)
 - [Security](https://angular.dev/best-practices/security)
 - [Internationalization (i18n)](https://angular.dev/guide/i18n)
+
+<!-- nx configuration start-->
+<!-- Leave the start & end comments to automatically receive updates. -->
+
+# General Guidelines for working with Nx
+
+- When running tasks (for example build, lint, test, e2e, etc.), always prefer running the task through `nx` (i.e. `nx run`, `nx run-many`, `nx affected`) instead of using the underlying tooling directly
+- You have access to the Nx MCP server and its tools, use them to help the user
+- When answering questions about the repository, use the `nx_workspace` tool first to gain an understanding of the workspace architecture where applicable.
+- When working in individual projects, use the `nx_project_details` mcp tool to analyze and understand the specific project structure and dependencies
+- For questions around nx configuration, best practices or if you're unsure, use the `nx_docs` tool to get relevant, up-to-date docs. Always use this instead of assuming things about nx configuration
+- If the user needs help with an Nx configuration or project graph error, use the `nx_workspace` tool to get any errors
+
+# CI Error Guidelines
+
+If the user wants help with fixing an error in their CI pipeline, use the following flow:
+
+- Retrieve the list of current CI Pipeline Executions (CIPEs) using the `nx_cloud_cipe_details` tool
+- If there are any errors, use the `nx_cloud_fix_cipe_failure` tool to retrieve the logs for a specific task
+- Use the task logs to see what's wrong and help the user fix their problem. Use the appropriate tools if necessary
+- Make sure that the problem is fixed by running the task that you passed into the `nx_cloud_fix_cipe_failure` tool
+
+<!-- nx configuration end-->
