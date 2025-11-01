@@ -1,0 +1,13 @@
+<div>
+  <input type="text" [(ngModel)]="filterText" placeholder="Filter by name" />
+  @for (domain of filteredDomains; track domain.name) {
+    <ul>
+      <li>
+        {{ domain.name }} - {{ domain.description }}
+      </li>
+    </ul>
+  } @empty {
+    <p>No matching domains found.</p>
+  }
+</div>
+

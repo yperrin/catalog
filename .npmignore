@@ -1,0 +1,12 @@
+# Ignore artifacts
+node_modules/
+dist/
+tmp/
+coverage/
+*.log
+.git/
+.gitignore
+.vscode/
+e2e/
+src/**/*.spec.ts
+src/**/*.e2e-spec.ts
