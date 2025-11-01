@@ -1,5 +1,4 @@
 <div>
-  <h2>Domain List</h2>
   <input type="text" [(ngModel)]="filterText" placeholder="Filter by name" />
   @for (domain of filteredDomains; track domain.name) {
     <ul>
