@@ -1,4 +1,4 @@
-# Gemini Assistant Guidelines
+﻿# Gemini Assistant Guidelines
 
 This document provides instructions for the Gemini AI assistant to ensure it can effectively contribute to this project, adhering to its conventions and standards.
 
