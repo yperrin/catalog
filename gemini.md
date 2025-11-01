@@ -53,6 +53,16 @@ Use `npx` to execute all `nx` commands.
 
 Follow the instructions at the end of the file
 
+### State Management with Signals
+
+- **Priority**: New features should prioritize using Angular Signals for state management.
+- **Rationale**: Signals provide a more granular and efficient way to track changes in state, leading to better performance and a more modern reactive programming model.
+- **Usage**:
+  - Use `signal` for component-level state.
+  - Use `computed` for derived state.
+  - When interacting with RxJS Observables, use `toSignal` to convert them to signals at the component boundary.
+  - Services should expose signals instead of observables where possible.
+
 ## 6. AI Assistant Guidelines
 
 As an AI assistant, your primary goal is to help develop this project safely and efficiently.

@@ -29,7 +29,11 @@
   @for (domain of filteredDomains(); track domain.name) {
   <ul>
     <li>
-      {{ domain.name }} <span class="division">({{ domain.division }} / {{ domain['sub-division'] }})</span>
+      {{ domain.name }} 
+      <a *ngIf="domain.dataFlowFile" [routerLink]="['/domain-flow', domain.name]">
+        <mat-icon>timeline</mat-icon>
+      </a>
+      <span class="division">({{ domain.division }} / {{ domain['sub-division'] }})</span>
       <br>
       {{ domain.description }}
     </li>
