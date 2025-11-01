@@ -1,23 +1,24 @@
-import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, OnInit, inject } from '@angular/core';
+import { DomainList } from './domain-list/domain-list';
+import { DomainService } from '../../shared/services/domain.service';
 
 @Component({
   selector: 'app-domains-home',
   standalone: true,
-  imports: [MatButtonModule],
+  imports: [DomainList],
   template: `
     <h1>Domains</h1>
     <p>Domains represent the type of data that is being collected by the company's architecture.</p>
-    @if (isEmpty) {
-      <div>
-        <p>No domains found. Get started by adding a new one.</p>
-        <button mat-raised-button color="primary">Add Domain</button>
-      </div>
-    } @else {
-      <p>Welcome to the domains section.</p>
-    }
+    <app-domain-list></app-domain-list>
   `,
 })
-export class DomainsHome {
-  isEmpty = true;
+export class DomainsHome implements OnInit {
+  isEmpty = true; // This will be removed later if not needed
+  private domainService = inject(DomainService);
+
+  ngOnInit(): void {
+    this.domainService.getDomains().subscribe(domains => {
+      this.isEmpty = domains.length === 0;
+    });
+  }
 }
