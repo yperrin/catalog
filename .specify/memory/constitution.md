@@ -39,9 +39,11 @@ The system MUST be designed in a modular way to easily allow the addition of new
 
 This is a new UI application which will have a catalog of domains as well as services. The user will be able to add new domains, new services. Then the user will be able to add a source service, then a source service may go to one or more services. And so on, thus creating a chain of services a single domain may go through. The user would want to be able to see a graph of services a domain can go through. The user may also select a service and see all the domains going through this service. This is meant to help understand the architecture used to create our final product offerings which will be categorized as services. It should help us understand what happens if we need to retire a single service but also whether we may have multiple copies of the same domain.
 
+For organization, pages related to domains should be located in a `domains` folder, and pages related to services should be located in a `services` folder.
+
 ## Development Workflow
 
-Development shall follow the guidelines in `GEMINI.md`. All changes must be accompanied by appropriate tests and pass linting and formatting checks.
+Development shall follow the guidelines in `GEMINI.md`. Tests should only be written when explicitly requested by the user and pass linting and formatting checks.
 
 ## Governance
 
