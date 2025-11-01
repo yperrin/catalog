@@ -2,7 +2,8 @@
   <div class="filters">
     <mat-form-field>
       <mat-label>Filter by name</mat-label>
-      <input matInput type="text" [ngModel]="filterText()" (ngModelChange)="filterText.set($event)" placeholder="Enter service name to filter" />
+      <input matInput type="text" [ngModel]="filterText()" (ngModelChange)="filterText.set($event)"
+        placeholder="Enter service name to filter" />
     </mat-form-field>
 
     <mat-form-field>
@@ -10,7 +11,7 @@
       <mat-select [ngModel]="selectedDivision()" (ngModelChange)="onDivisionChange($event)">
         <mat-option value="all">All</mat-option>
         @for (division of divisions(); track division.division) {
-          <mat-option [value]="division.division">{{ division.division }}</mat-option>
+        <mat-option [value]="division.division">{{ division.division }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
@@ -20,7 +21,7 @@
       <mat-select [ngModel]="selectedSubDivision()" (ngModelChange)="selectedSubDivision.set($event)">
         <mat-option value="all">All</mat-option>
         @for (subDivision of subDivisions(); track subDivision) {
-          <mat-option [value]="subDivision">{{ subDivision }}</mat-option>
+        <mat-option [value]="subDivision">{{ subDivision }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
@@ -36,23 +37,24 @@
   </div>
 
   @for (service of filteredServices(); track service.name) {
-    <ul>
-            <li>
-                      @if (service.content) {
-                        <mat-icon class="small-icon" color="primary" matTooltip="Content Application">check_circle</mat-icon>
-                      } @else {
-                        <mat-icon class="small-icon" color="primary" matTooltip="Product Application">cancel</mat-icon>
-                      }              {{ service.name }}
-              <span class="division">
-  ({{ service.division }}
-  @if (service['sub-division']) {
-    / {{ service['sub-division'] }}
-  })
-</span>
-              <br>
-              {{ service.description }}
-            </li>    </ul>
+  <ul>
+    <li>
+      @if (service.content) {
+      <mat-icon class="small-icon" color="primary" matTooltip="Content Application">check_circle</mat-icon>
+      } @else {
+      <mat-icon class="small-icon" color="primary" matTooltip="Product Application">cancel</mat-icon>
+      } <a [routerLink]="['/service-view', service.name]">{{ service.name }}</a>
+      <span class="division">
+        ({{ service.division }}
+        @if (service['sub-division']) {
+        / {{ service['sub-division'] }}
+        })
+      </span>
+      <br>
+      {{ service.description }}
+    </li>
+  </ul>
   } @empty {
-    <p>No matching services found.</p>
+  <p>No matching services found.</p>
   }
 </div>

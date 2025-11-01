@@ -24,7 +24,7 @@
           @for (domain of service.domains; track domain.name) {
             <tr>
               <td><a [routerLink]="['/domain-flow', domain.name]">{{ domain.name }}</a></td>
-              <td>{{ domain.dataUpdated }}</td>
+              <td>{{ domain.dataUpdated }} </td>
             </tr>
           }
         </tbody>
