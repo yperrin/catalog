@@ -21,6 +21,13 @@
     "content": true
   },
   {
+    "name": "Commercial Items FTP Ingest",
+    "description": "Used to read FTP data sources for commercial items like PRN and BusinessWrire",
+    "division": "LS&H",
+    "sub-division": "R&D",
+    "content": true
+  },
+  {
     "name": "Deals Master",
     "description": "Used to curate the deals records and dispatch them to downstream systems",
     "division": "LS&H",
@@ -40,5 +47,19 @@
     "division": "LS&H",
     "sub-division": "R&D",
     "content": true
+  },
+  {
+    "name": "Databricks",
+    "description": "Delta Lake service used to expose domains to data consumers",
+    "division": "LS&H",
+    "sub-division": "R&D",
+    "content": true
+  },
+  {
+    "name": "CI",
+    "description": "Cortellis Intelligence end-user platform",
+    "division": "LS&H",
+    "sub-division": "R&D",
+    "content": false
   }
 ]
