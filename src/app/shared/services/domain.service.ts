@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, of } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, take } from 'rxjs/operators';
 import { Domain } from '../models/domain.model';
 
 @Injectable({
@@ -19,6 +19,7 @@ export class DomainService {
 
   private loadDomains(): void {
     this.http.get<Domain[]>('assets/domains.json').pipe(
+      take(1),
       tap(data => {
         this.domains = data;
         this.domainsSubject.next(this.domains);

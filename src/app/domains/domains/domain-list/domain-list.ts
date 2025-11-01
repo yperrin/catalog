@@ -6,12 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { DomainService } from '../../../shared/services/domain.service';
 import { Domain } from '../../../shared/models/domain.model';
-import { HttpClient } from '@angular/common/http';
-
-interface Division {
-  division: string;
-  'sub-divisions': string[];
-}
+import { DivisionService, Division } from '../../../shared/services/division.service';
 
 @Component({
   selector: 'app-domain-list',
@@ -24,7 +19,7 @@ export class DomainList implements OnInit {
   domains: Domain[] = [];
   filterText = '';
   private domainService = inject(DomainService);
-  private http = inject(HttpClient);
+  private divisionService = inject(DivisionService);
 
   divisions: Division[] = [];
   subDivisions: string[] = [];
@@ -36,7 +31,7 @@ export class DomainList implements OnInit {
     this.domainService.getDomains().subscribe(domains => {
       this.domains = domains;
     });
-    this.http.get<Division[]>('/assets/divisions.json').subscribe(data => {
+    this.divisionService.getDivisions().subscribe(data => {
       this.divisions = data;
     });
   }

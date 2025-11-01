@@ -6,19 +6,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ServiceService } from '../../../shared/services/service.service';
 import { Service } from '../../../shared/models/service.model';
-import { HttpClient } from '@angular/common/http';
-
-interface Division {
-  division: string;
-  'sub-divisions': string[];
-}
+import { DivisionService, Division } from '../../../shared/services/division.service';
 
 @Component({
   selector: 'app-service-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatIconModule, MatTooltipModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatIconModule, MatTooltipModule, MatSlideToggleModule],
   templateUrl: './service-list.html',
   styleUrl: './service-list.css',
 })
@@ -26,7 +22,7 @@ export class ServiceList implements OnInit {
   services: Service[] = [];
   filterText = '';
   private serviceService = inject(ServiceService);
-  private http = inject(HttpClient);
+  private divisionService = inject(DivisionService);
 
   divisions: Division[] = [];
   subDivisions: string[] = [];
@@ -38,7 +34,7 @@ export class ServiceList implements OnInit {
     this.serviceService.getServices().subscribe(services => {
       this.services = services;
     });
-    this.http.get<Division[]>('/assets/divisions.json').subscribe(data => {
+    this.divisionService.getDivisions().subscribe(data => {
       this.divisions = data;
     });
   }
@@ -52,6 +48,8 @@ export class ServiceList implements OnInit {
       this.subDivisions = selectedDivision ? selectedDivision['sub-divisions'] : [];
     }
   }
+
+  contentFilter: 'all' | 'content' | 'non-content' = 'all';
 
   get filteredServices(): Service[] {
     let filtered = this.services;
@@ -68,6 +66,12 @@ export class ServiceList implements OnInit {
 
     if (this.selectedSubDivision !== 'all') {
       filtered = filtered.filter(service => service['sub-division'] === this.selectedSubDivision);
+    }
+
+    if (this.contentFilter === 'content') {
+      filtered = filtered.filter(service => service.content);
+    } else if (this.contentFilter === 'non-content') {
+      filtered = filtered.filter(service => !service.content);
     }
 
     return filtered;

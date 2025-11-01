@@ -24,6 +24,15 @@
         }
       </mat-select>
     </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Content Filter</mat-label>
+      <mat-select [(ngModel)]="contentFilter">
+        <mat-option value="all">All</mat-option>
+        <mat-option value="content">Content Services</mat-option>
+        <mat-option value="non-content">Product Services</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
   @for (service of filteredServices; track service.name) {
