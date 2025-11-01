@@ -48,6 +48,15 @@ Use `npx` to execute all `nx` commands.
 
 - **Formatting:** This project uses Prettier for automated code formatting. All code should be formatted before committing.
 - **Linting:** This project uses ESLint for code quality and style checking. Adhere to the rules defined in `eslint.config.mjs`.
+
+### Angular Style Guide
+
+- **Component Naming:** Component class names should be in UpperCamelCase (e.g., `UserDetail`). Avoid appending "Component" to the class name.
+- **Selector Naming:** Component selectors should be in kebab-case and prefixed with `app-` (e.g., `app-user-detail`).
+- **File Naming:** Component files should be named in kebab-case (e.g., `user-detail.ts`, `user-detail.html`, `user-detail.css`).
+- **Standalone Components:** Prefer standalone components for new features and refactoring existing ones.
+- **Control Flow:** Utilize Angular's built-in control flow (`@if`, `@for`, `@switch`) instead of structural directives (`*ngIf`, `*ngFor`, `*ngSwitch`).
+
 - **Commit Messages:** Follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification. This helps maintain a clear and automated version history.
   - **Examples:**
     - `feat: add user authentication service`
