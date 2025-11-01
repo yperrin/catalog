@@ -1,4 +1,4 @@
-/* Basic styling for domain list */
+/* Basic styling for service list */
 
 h2 {
   color: #333;
@@ -26,4 +26,10 @@ li {
   display: flex;
   gap: 20px;
   margin-bottom: 20px;
+}
+
+.small-icon {
+  font-size: 18px; /* Adjust size as needed */
+  height: 18px;
+  width: 18px;
 }

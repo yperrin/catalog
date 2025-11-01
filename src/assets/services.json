@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Data Acquisition Framework",
+    "description": "Used to acquire data from various sources including web sites and FTP servers",
+    "division": "A&G",
+    "sub-division": null,
+    "content": true
+  },
+  {
+    "name": "OCR",
+    "description": "Processes pdf in the Raw folder and creates an OCR file in the Content folder",
+    "division": "A&G",
+    "sub-division": null,
+    "content": true
+  },
+  {
+    "name": "Commercial Items Master",
+    "description": "Used to curate the commercial items records and dispatch them to downstream systems",
+    "division": "LS&H",
+    "sub-division": "R&D",
+    "content": true
+  },
+  {
+    "name": "Deals Master",
+    "description": "Used to curate the deals records and dispatch them to downstream systems",
+    "division": "LS&H",
+    "sub-division": "R&D",
+    "content": true
+  },
+  {
+    "name": "JPharm",
+    "description": "Legacy content system still used as part of integration with Cortellis architecture",
+    "division": "LS&H",
+    "sub-division": "R&D",
+    "content": true
+  },
+  {
+    "name": "CMS",
+    "description": "Legacy content system still used as part of integration with CDDI architecture",
+    "division": "LS&H",
+    "sub-division": "R&D",
+    "content": true
+  }
+]

@@ -1,6 +1,14 @@
 [
     {
         "name": "Commercial Items",
-        "description": "Press releases"
+        "division": "LS&H",
+        "sub-division": "R&D",
+        "description": "The true Commercial item represents Press releases but also a proxy for other items like Journals and Conferences"
+    },
+    {
+        "name": "Deals",
+        "division": "LS&H",
+        "sub-division": "R&D",
+        "description": "Represents financial deals including mergers, acquisitions, joint ventures, partnerships in Life Sciences & Healthcare sector"
     }
 ]

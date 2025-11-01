@@ -4,8 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { DomainService } from '../../../shared/services/domain.service';
-import { Domain } from '../../../shared/models/domain.model';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ServiceService } from '../../../shared/services/service.service';
+import { Service } from '../../../shared/models/service.model';
 import { HttpClient } from '@angular/common/http';
 
 interface Division {
@@ -14,16 +16,16 @@ interface Division {
 }
 
 @Component({
-  selector: 'app-domain-list',
+  selector: 'app-service-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
-  templateUrl: './domain-list.html',
-  styleUrl: './domain-list.css',
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatIconModule, MatTooltipModule],
+  templateUrl: './service-list.html',
+  styleUrl: './service-list.css',
 })
-export class DomainList implements OnInit {
-  domains: Domain[] = [];
+export class ServiceList implements OnInit {
+  services: Service[] = [];
   filterText = '';
-  private domainService = inject(DomainService);
+  private serviceService = inject(ServiceService);
   private http = inject(HttpClient);
 
   divisions: Division[] = [];
@@ -33,8 +35,8 @@ export class DomainList implements OnInit {
   selectedSubDivision = 'all';
 
   ngOnInit(): void {
-    this.domainService.getDomains().subscribe(domains => {
-      this.domains = domains;
+    this.serviceService.getServices().subscribe(services => {
+      this.services = services;
     });
     this.http.get<Division[]>('/assets/divisions.json').subscribe(data => {
       this.divisions = data;
@@ -51,21 +53,21 @@ export class DomainList implements OnInit {
     }
   }
 
-  get filteredDomains(): Domain[] {
-    let filtered = this.domains;
+  get filteredServices(): Service[] {
+    let filtered = this.services;
 
     if (this.filterText) {
-      filtered = filtered.filter(domain =>
-        domain.name.toLowerCase().includes(this.filterText.toLowerCase())
+      filtered = filtered.filter(service =>
+        service.name.toLowerCase().includes(this.filterText.toLowerCase())
       );
     }
 
     if (this.selectedDivision !== 'all') {
-      filtered = filtered.filter(domain => domain.division === this.selectedDivision);
+      filtered = filtered.filter(service => service.division === this.selectedDivision);
     }
 
     if (this.selectedSubDivision !== 'all') {
-      filtered = filtered.filter(domain => domain['sub-division'] === this.selectedSubDivision);
+      filtered = filtered.filter(service => service['sub-division'] === this.selectedSubDivision);
     }
 
     return filtered;
