@@ -16,6 +16,8 @@ This document provides instructions for the Gemini AI assistant to ensure it can
 ## 3. Project Structure
 
 - `src/app/`: Contains the main Angular application source code (components, services, routes).
+  - Pages related to domains should be located in a `domains` folder within `src/app/`.
+  - Pages related to services should be located in a `services` folder within `src/app/`.
 - `e2e/`: Contains the Playwright end-to-end tests.
 - `public/`: Static assets, such as `favicon.ico`.
 - `project.json`: Nx project configuration for the main application.
@@ -64,8 +66,8 @@ As an AI assistant, your primary goal is to help develop this project safely and
   ```sh
   npx nx generate @nx/angular:component my-new-component --project=catalog
   ```
-- **Testing is Mandatory:**
-  - When adding a new feature, you must also add corresponding unit or e2e tests.
+- **Testing:**
+  - Only write tests when explicitly requested by the user.
   - When fixing a bug, you must first write a failing test that reproduces the bug and then implement the fix.
 - **Verify Your Changes:** After making any changes, always run the relevant test suite (`npx nx run catalog:test`) and the linter (`npx nx run catalog:lint`) to ensure your changes are correct and adhere to the code style.
 - **Be Secure:** Always consider security best practices. Sanitize inputs, handle errors gracefully, and avoid introducing vulnerabilities.
