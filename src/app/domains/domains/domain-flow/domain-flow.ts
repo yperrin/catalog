@@ -81,7 +81,15 @@ export class DomainFlowComponent {
       .data(data.nodes)
       .join('circle')
       .attr('r', 20)
-      .attr('fill', (d: any) => d.modifies ? '#ff7f0e' : '#1f77b4')
+      .attr('fill', (d: any) => {
+        if (data.initialization.services.includes(d.id)) {
+          return '#008000'; // Green for initial nodes
+        } else if (d.modifies) {
+          return '#ff7f0e'; // Orange for modifies nodes
+        } else {
+          return '#1f77b4'; // Blue for other nodes
+        }
+      })
       .call(this.drag(simulation) as any);
 
     const text = svg.append('g')
