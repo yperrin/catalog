@@ -32,6 +32,10 @@
     {
       "id": "CI",
       "modifies": false
+    },
+    {
+      "id": "CDI",
+      "modifies": false
     }
   ],
   "edges": [
@@ -62,6 +66,10 @@
     {
       "source": "JPharm",
       "target": "CI"
+    },
+    {
+      "source": "CMS",
+      "target": "CDI"
     }
   ],
   "initialization": {
