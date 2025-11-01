@@ -1,7 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal, Signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, of } from 'rxjs';
-import { tap, catchError, take } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
 export interface Division {
   division: string;
@@ -13,9 +13,8 @@ export interface Division {
 })
 export class DivisionService {
   private http = inject(HttpClient);
-  private divisionsSubject = new BehaviorSubject<Division[]>([]);
-  divisions$: Observable<Division[]> = this.divisionsSubject.asObservable();
-  private divisions: Division[] = [];
+  private divisionsSignal = signal<Division[]>([]);
+  public divisions: Signal<Division[]> = this.divisionsSignal.asReadonly();
 
   constructor() {
     this.loadDivisions();
@@ -23,21 +22,18 @@ export class DivisionService {
 
   private loadDivisions(): void {
     this.http.get<Division[]>('assets/divisions.json').pipe(
-      take(1),
       tap(data => {
-        this.divisions = data;
-        this.divisionsSubject.next(this.divisions);
+        this.divisionsSignal.set(data);
       }),
       catchError(error => {
         console.error('Error loading divisions:', error);
-        this.divisions = [];
-        this.divisionsSubject.next(this.divisions);
+        this.divisionsSignal.set([]);
         return of([]);
       })
     ).subscribe();
   }
 
-  getDivisions(): Observable<Division[]> {
-    return this.divisions$;
+  getDivisions(): Signal<Division[]> {
+    return this.divisions;
   }
 }

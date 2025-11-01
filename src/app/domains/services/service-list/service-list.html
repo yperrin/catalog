@@ -2,14 +2,14 @@
   <div class="filters">
     <mat-form-field>
       <mat-label>Filter by name</mat-label>
-      <input matInput type="text" [(ngModel)]="filterText" placeholder="Enter service name to filter" />
+      <input matInput type="text" [ngModel]="filterText()" (ngModelChange)="filterText.set($event)" placeholder="Enter service name to filter" />
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Division</mat-label>
-      <mat-select [(ngModel)]="selectedDivision" (ngModelChange)="onDivisionChange()">
+      <mat-select [ngModel]="selectedDivision()" (ngModelChange)="onDivisionChange($event)">
         <mat-option value="all">All</mat-option>
-        @for (division of divisions; track division.division) {
+        @for (division of divisions(); track division.division) {
           <mat-option [value]="division.division">{{ division.division }}</mat-option>
         }
       </mat-select>
@@ -17,9 +17,9 @@
 
     <mat-form-field>
       <mat-label>Sub-division</mat-label>
-      <mat-select [(ngModel)]="selectedSubDivision">
+      <mat-select [ngModel]="selectedSubDivision()" (ngModelChange)="selectedSubDivision.set($event)">
         <mat-option value="all">All</mat-option>
-        @for (subDivision of subDivisions; track subDivision) {
+        @for (subDivision of subDivisions(); track subDivision) {
           <mat-option [value]="subDivision">{{ subDivision }}</mat-option>
         }
       </mat-select>
@@ -27,7 +27,7 @@
 
     <mat-form-field>
       <mat-label>Content Filter</mat-label>
-      <mat-select [(ngModel)]="contentFilter">
+      <mat-select [ngModel]="contentFilter()" (ngModelChange)="contentFilter.set($event)">
         <mat-option value="all">All</mat-option>
         <mat-option value="content">Content Services</mat-option>
         <mat-option value="non-content">Product Services</mat-option>
@@ -35,7 +35,7 @@
     </mat-form-field>
   </div>
 
-  @for (service of filteredServices; track service.name) {
+  @for (service of filteredServices(); track service.name) {
     <ul>
             <li>
                       @if (service.content) {

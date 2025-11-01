@@ -12,13 +12,4 @@ import { DomainService } from '../../shared/services/domain.service';
     <app-domain-list></app-domain-list>
   `,
 })
-export class DomainsHome implements OnInit {
-  isEmpty = true; // This will be removed later if not needed
-  private domainService = inject(DomainService);
-
-  ngOnInit(): void {
-    this.domainService.getDomains().subscribe(domains => {
-      this.isEmpty = domains.length === 0;
-    });
-  }
-}
+export class DomainsHome { }

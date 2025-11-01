@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,8 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ServiceService } from '../../../shared/services/service.service';
-import { Service } from '../../../shared/models/service.model';
-import { DivisionService, Division } from '../../../shared/services/division.service';
+import { DivisionService } from '../../../shared/services/division.service';
 
 @Component({
   selector: 'app-service-list',
@@ -18,62 +17,54 @@ import { DivisionService, Division } from '../../../shared/services/division.ser
   templateUrl: './service-list.html',
   styleUrl: './service-list.css',
 })
-export class ServiceList implements OnInit {
-  services: Service[] = [];
-  filterText = '';
+export class ServiceList {
   private serviceService = inject(ServiceService);
   private divisionService = inject(DivisionService);
 
-  divisions: Division[] = [];
-  subDivisions: string[] = [];
+  services = this.serviceService.getServices();
+  divisions = this.divisionService.getDivisions();
 
-  selectedDivision = 'all';
-  selectedSubDivision = 'all';
+  filterText = signal('');
+  selectedDivision = signal('all');
+  selectedSubDivision = signal('all');
+  contentFilter = signal<'all' | 'content' | 'non-content'>('all');
 
-  ngOnInit(): void {
-    this.serviceService.getServices().subscribe(services => {
-      this.services = services;
-    });
-    this.divisionService.getDivisions().subscribe(data => {
-      this.divisions = data;
-    });
-  }
-
-  onDivisionChange(): void {
-    this.selectedSubDivision = 'all';
-    if (this.selectedDivision === 'all') {
-      this.subDivisions = [];
-    } else {
-      const selectedDivision = this.divisions.find(d => d.division === this.selectedDivision);
-      this.subDivisions = selectedDivision ? selectedDivision['sub-divisions'] : [];
+  subDivisions = computed(() => {
+    if (this.selectedDivision() === 'all') {
+      return [];
     }
-  }
+    const selectedDivision = this.divisions().find(d => d.division === this.selectedDivision());
+    return selectedDivision ? selectedDivision['sub-divisions'] : [];
+  });
 
-  contentFilter: 'all' | 'content' | 'non-content' = 'all';
+  filteredServices = computed(() => {
+    let filtered = this.services();
 
-  get filteredServices(): Service[] {
-    let filtered = this.services;
-
-    if (this.filterText) {
+    if (this.filterText()) {
       filtered = filtered.filter(service =>
-        service.name.toLowerCase().includes(this.filterText.toLowerCase())
+        service.name.toLowerCase().includes(this.filterText().toLowerCase())
       );
     }
 
-    if (this.selectedDivision !== 'all') {
-      filtered = filtered.filter(service => service.division === this.selectedDivision);
+    if (this.selectedDivision() !== 'all') {
+      filtered = filtered.filter(service => service.division === this.selectedDivision());
     }
 
-    if (this.selectedSubDivision !== 'all') {
-      filtered = filtered.filter(service => service['sub-division'] === this.selectedSubDivision);
+    if (this.selectedSubDivision() !== 'all') {
+      filtered = filtered.filter(service => service['sub-division'] === this.selectedSubDivision());
     }
 
-    if (this.contentFilter === 'content') {
+    if (this.contentFilter() === 'content') {
       filtered = filtered.filter(service => service.content);
-    } else if (this.contentFilter === 'non-content') {
+    } else if (this.contentFilter() === 'non-content') {
       filtered = filtered.filter(service => !service.content);
     }
 
     return filtered;
+  });
+
+  onDivisionChange(division: string): void {
+    this.selectedDivision.set(division);
+    this.selectedSubDivision.set('all');
   }
 }

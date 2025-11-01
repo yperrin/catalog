@@ -1,7 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal, Signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, of } from 'rxjs';
-import { tap, catchError, take } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import { Service } from '../models/service.model';
 
 @Injectable({
@@ -9,9 +9,8 @@ import { Service } from '../models/service.model';
 })
 export class ServiceService {
   private http = inject(HttpClient);
-  private servicesSubject = new BehaviorSubject<Service[]>([]);
-  services$: Observable<Service[]> = this.servicesSubject.asObservable();
-  private services: Service[] = [];
+  private servicesSignal = signal<Service[]>([]);
+  public services: Signal<Service[]> = this.servicesSignal.asReadonly();
 
   constructor() {
     this.loadServices();
@@ -19,21 +18,18 @@ export class ServiceService {
 
   private loadServices(): void {
     this.http.get<Service[]>('assets/services.json').pipe(
-      take(1),
       tap(data => {
-        this.services = data;
-        this.servicesSubject.next(this.services);
+        this.servicesSignal.set(data);
       }),
       catchError(error => {
         console.error('Error loading services:', error);
-        this.services = [];
-        this.servicesSubject.next(this.services);
+        this.servicesSignal.set([]);
         return of([]);
       })
     ).subscribe();
   }
 
-  getServices(): Observable<Service[]> {
-    return this.services$;
+  getServices(): Signal<Service[]> {
+    return this.services;
   }
 }
