@@ -1,0 +1,70 @@
+{
+  "domain": "Commercial Items",
+  "nodes": [
+    {
+      "id": "Data Acquisition Framework",
+      "modifies": false
+    },
+    {
+      "id": "Commercial Items FTP Ingest",
+      "modifies": false
+    },
+    {
+      "id": "OCR",
+      "modifies": false
+    },
+    {
+      "id": "Commercial Items Master",
+      "modifies": true
+    },
+    {
+      "id": "JPharm",
+      "modifies": false
+    },
+    {
+      "id": "CMS",
+      "modifies": false
+    },
+    {
+      "id": "Databricks",
+      "modifies": false
+    },
+    {
+      "id": "CI",
+      "modifies": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "Data Acquisition Framework",
+      "target": "OCR"
+    },
+    {
+      "source": "Commercial Items FTP Ingest",
+      "target": "OCR"
+    },
+    {
+      "source": "OCR",
+      "target": "Commercial Items Master"
+    },
+    {
+      "source": "Commercial Items Master",
+      "target": "JPharm"
+    },
+    {
+      "source": "Commercial Items Master",
+      "target": "CMS"
+    },
+    {
+      "source": "Commercial Items Master",
+      "target": "Databricks"
+    },
+    {
+      "source": "JPharm",
+      "target": "CI"
+    }
+  ],
+  "initialization": {
+    "services": ["Data Acquisition Framework", "Commercial Items FTP Ingest"]
+  }
+}

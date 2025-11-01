@@ -3,4 +3,5 @@ export interface Domain {
   description?: string;
   division?: string;
   'sub-division'?: string;
+  dataFlowFile?: string;
 }
