@@ -11,7 +11,7 @@ export interface Division {
 @Injectable({
   providedIn: 'root'
 })
-export class DivisionService {
+export class DivisionClient {
   private http = inject(HttpClient);
   private divisionsSignal = signal<Division[]>([]);
   public divisions: Signal<Division[]> = this.divisionsSignal.asReadonly();

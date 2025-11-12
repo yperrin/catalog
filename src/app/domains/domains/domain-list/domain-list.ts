@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -6,8 +6,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
-import { DomainService } from '../../shared/services/domain.service';
-import { DivisionService } from '../../shared/services/division.service';
+import { DomainClient } from '../../shared/services/domain-client';
+import { DivisionClient } from '../../shared/services/division-client';
+import { DomainWithAliases, Domain } from '../../shared/models/domain';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-domain-list',
@@ -17,11 +19,12 @@ import { DivisionService } from '../../shared/services/division.service';
   styleUrl: './domain-list.css',
 })
 export class DomainList {
-  private domainService = inject(DomainService);
-  private divisionService = inject(DivisionService);
+  private domainClient = inject(DomainClient);
+  private divisionClient = inject(DivisionClient);
 
-  domains = this.domainService.getDomains();
-  divisions = this.divisionService.getDivisions();
+  domains = this.domainClient.getDomains();
+  domainsWithAliases = signal<DomainWithAliases[]>([]);
+  divisions = this.divisionClient.getDivisions();
 
   filterText = signal('');
   selectedDivision = signal('all');
@@ -36,7 +39,7 @@ export class DomainList {
   });
 
   filteredDomains = computed(() => {
-    let filtered = this.domains();
+    let filtered = this.domainsWithAliases();
 
     if (this.filterText()) {
       filtered = filtered.filter(domain =>
@@ -54,6 +57,39 @@ export class DomainList {
 
     return filtered;
   });
+
+  constructor() {
+    // Load domains with aliases when domains change
+    effect(() => {
+      const domains = this.domains();
+      if (domains.length > 0) {
+        this.loadDomainsWithAliases(domains);
+      }
+    });
+  }
+
+  private loadDomainsWithAliases(domains: Domain[]): void {
+    const domainWithAliases$ = domains.map(domain =>
+      this.domainClient.getDomainWithAliases(domain.name)
+    );
+    
+    combineLatest(domainWithAliases$).subscribe(domainsWithAliases => {
+      this.domainsWithAliases.set(
+        domainsWithAliases.filter(d => d !== undefined) as DomainWithAliases[]
+      );
+    });
+  }
+
+  getAliasCount(domain: DomainWithAliases): number {
+    return domain.aliases?.length ?? 0;
+  }
+
+  getAliasText(domain: DomainWithAliases): string {
+    const count = this.getAliasCount(domain);
+    if (count === 0) return 'No service-specific names';
+    if (count === 1) return '1 service-specific name';
+    return `${count} service-specific names`;
+  }
 
   onDivisionChange(division: string): void {
     this.selectedDivision.set(division);

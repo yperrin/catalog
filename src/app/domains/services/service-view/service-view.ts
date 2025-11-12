@@ -4,8 +4,9 @@ import {
   inject
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Domain } from '../../../domains/shared/models/domain.model';
-import { ServiceService } from '../../../domains/shared/services/service.service';
+import { Domain, formatDomainWithAliases } from '../../shared/models/domain';
+import { ServiceClient } from '../../../domains/shared/services/service-client';
+import { ServiceDomain } from './selected-service';
 
 @Component({
   selector: 'app-service-view',
@@ -16,18 +17,22 @@ import { ServiceService } from '../../../domains/shared/services/service.service
 })
 export class ServiceView {
   private readonly route = inject(ActivatedRoute);
-  private readonly serviceService = inject(ServiceService);
+  private readonly serviceClient = inject(ServiceClient);
 
-  readonly loading = this.serviceService.loading;
-  readonly service = this.serviceService.selectedService;
+  readonly loading = this.serviceClient.loading;
+  readonly service = this.serviceClient.selectedService;
 
   trackByDomainName(index: number, domain: Domain): string {
     return domain.name;
   }
 
+  formatDomainDisplay(domain: ServiceDomain): string {
+    return formatDomainWithAliases(domain.name, domain.aliases);
+  }
+
   constructor() {
     const serviceName = this.route.snapshot.paramMap.get('name');
-    this.service = this.serviceService.selectedService;
-    this.serviceService.selectServiceByName(serviceName);
+    this.service = this.serviceClient.selectedService;
+    this.serviceClient.selectServiceByName(serviceName);
   }
 }

@@ -4,16 +4,16 @@ import { of } from 'rxjs';
 import { tap, catchError, map } from 'rxjs/operators';
 import { Service } from '../models/service.model';
 import { SelectedService } from '../../services/service-view/selected-service';
-import { DomainService } from './domain.service';
-import { DataFlow } from './data-flow.service';
+import { DomainClient } from './domain-client';
+import { DomainDataFlow } from '../models/domain';
 import { combineLatest } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ServiceService {
+export class ServiceClient {
   private http = inject(HttpClient);
-  private domainService = inject(DomainService);
+  private domainClient = inject(DomainClient);
 
   private servicesSignal = signal<Service[]>([]);
   public services: Signal<Service[]> = this.servicesSignal.asReadonly();
@@ -52,17 +52,18 @@ export class ServiceService {
         description: service.description,
         domains: [],
       };
-      const domains = this.domainService.getDomains()();
+      const domains = this.domainClient.getDomains()();
       const arrayOfMatchingDataFlows = domains.filter((domain) => domain.dataFlowFile).map((domain) => {
         const dataFlow = domain.dataFlowFile;
         return this.http.get('assets/' + dataFlow).pipe(
-          map((data: DataFlow) => {
+          map((data: DomainDataFlow) => {
             const serviceNode = data.nodes.find((n) => n.id === service.name);
             if (serviceNode) {
               return {
                 domain: domain.name,
                 description: domain.description,
                 modifies: serviceNode.modifies,
+                aliases: serviceNode.aliases,
               };
             }
           })
@@ -77,6 +78,7 @@ export class ServiceService {
                 name: d.domain,
                 description: d.description,
                 dataUpdated: d.modifies,
+                aliases: d.aliases,
               });
             });
             this.selectedServiceSignal.set(selectedService);

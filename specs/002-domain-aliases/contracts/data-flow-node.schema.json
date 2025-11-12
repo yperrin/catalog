@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://catalog.example.com/schemas/data-flow-node.json",
+  "title": "DataFlowNode",
+  "description": "A service's participation in a domain's data flow, with optional service-specific alias",
+  "type": "object",
+  "required": ["id", "modifies"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Service name (must match a Service.name from services.json)",
+      "examples": ["OCR", "JPharm", "Commercial Items Master"]
+    },
+    "modifies": {
+      "type": "boolean",
+      "description": "Whether this service modifies the domain data",
+      "examples": [true, false]
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Optional array of service-specific names for the domain. If omitted, the service uses the canonical domain name. If present, these are what the service calls the domain internally.",
+      "examples": [
+        ["References"],
+        ["References", "Citations"],
+        ["Commercial Items"]
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "examples": [
+    {
+      "id": "JPharm",
+      "modifies": false,
+      "aliases": ["References", "Citations"]
+    },
+    {
+      "id": "OCR",
+      "modifies": false
+    },
+    {
+      "id": "Commercial Items Master",
+      "modifies": true,
+      "aliases": ["Commercial Items"]
+    }
+  ]
+}

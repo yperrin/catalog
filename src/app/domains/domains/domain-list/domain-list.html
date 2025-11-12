@@ -38,8 +38,16 @@
         {{ domain.name }}
       }
       <span class="division">({{ domain.division }} / {{ domain['sub-division'] }})</span>
+      <span class="alias-info">{{ getAliasText(domain) }}</span>
       <br>
       {{ domain.description }}
+      @if (getAliasCount(domain) > 0) {
+        <div class="aliases-preview">
+          @for (alias of domain.aliases; track alias.serviceName) {
+            <span class="alias-tag">{{ alias.serviceName }}: {{ alias.alias }}</span>
+          }
+        </div>
+      }
     </li>
   </ul>
   } @empty {
