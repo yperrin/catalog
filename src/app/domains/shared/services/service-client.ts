@@ -2,7 +2,7 @@ import { Injectable, inject, signal, Signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { tap, catchError, map } from 'rxjs/operators';
-import { Service } from '../models/service.model';
+import { Service } from '../models/service';
 import { SelectedService } from '../../services/service-view/selected-service';
 import { DomainClient } from './domain-client';
 import { DomainDataFlow } from '../models/domain';
