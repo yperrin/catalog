@@ -6,6 +6,35 @@
 
 [Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
 
+## Features
+
+### Domain Aliases
+
+Services may use different names for domains than the canonical name. The catalog application captures and displays these service-specific aliases to help understand how different systems refer to the same data concepts.
+
+**Example:**
+- **Domain**: Commercial Items (canonical name)
+- **JPharm**: Refers to it as "References"
+- **Other Services**: Use the standard name "Commercial Items"
+
+**Where aliases appear:**
+- **Domain List**: Shows a count of service-specific names and displays them as tags
+- **Service View**: Displays domains with their aliases in the format "Domain Name (known as: Alias)"
+- **Data Flow Diagram**: Annotates service nodes with aliases below the service name
+
+**Data Model:**
+Aliases are defined in the data flow JSON files (`src/assets/*-data-flow.json`) by adding an optional `aliases` array to service nodes:
+
+```json
+{
+  "id": "JPharm",
+  "modifies": false,
+  "aliases": ["References"]
+}
+```
+
+**Note**: Only add the `aliases` field when a service uses a different name than the canonical domain name. Omit it when the service uses the standard name to avoid redundancy.
+
 ## Finish your CI setup
 
 [Click here to finish setting up your workspace!](https://cloud.nx.app/connect/knfCjK5tyC)

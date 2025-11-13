@@ -17,13 +17,44 @@ li {
   border: 1px solid #ddd;
 }
 
+li mat-icon {
+  vertical-align: middle;
+}
+
 .division {
   color: #666;
   font-size: 0.9em;
+  margin-right: 8px;
+}
+
+.alias-info {
+  color: #666;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-left: 8px;
+}
+
+.aliases-preview {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.alias-tag {
+  background: #e3f2fd;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  color: #1976d2;
 }
 
 .filters {
   display: flex;
   gap: 20px;
   margin-bottom: 20px;
+}
+
+li a {
+  text-decoration: none;
 }

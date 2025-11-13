@@ -1,0 +1,11 @@
+::ng-deep .node-label {
+  font-size: 12px;
+  font-weight: 600;
+  fill: #333;
+}
+
+::ng-deep .node-alias {
+  font-size: 10px;
+  fill: #666;
+  font-style: italic;
+}

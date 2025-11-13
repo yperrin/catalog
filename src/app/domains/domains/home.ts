@@ -1,6 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { DomainList } from './domain-list/domain-list';
-import { DomainService } from '../../shared/services/domain.service';
 
 @Component({
   selector: 'app-domains-home',

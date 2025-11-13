@@ -5,24 +5,25 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ServiceService } from '../../../shared/services/service.service';
-import { DivisionService } from '../../../shared/services/division.service';
+import { ServiceClient } from '../../shared/services/service-client';
+import { DivisionClient } from '../../shared/services/division-client';
 
 @Component({
   selector: 'app-service-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatIconModule, MatTooltipModule, MatSlideToggleModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatIconModule, MatTooltipModule, MatSlideToggleModule, RouterModule],
   templateUrl: './service-list.html',
   styleUrl: './service-list.css',
 })
 export class ServiceList {
-  private serviceService = inject(ServiceService);
-  private divisionService = inject(DivisionService);
+  private serviceClient = inject(ServiceClient);
+  private divisionClient = inject(DivisionClient);
 
-  services = this.serviceService.getServices();
-  divisions = this.divisionService.getDivisions();
+  services = this.serviceClient.services;
+  divisions = this.divisionClient.getDivisions();
 
   filterText = signal('');
   selectedDivision = signal('all');

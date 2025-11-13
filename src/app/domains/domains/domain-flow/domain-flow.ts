@@ -1,7 +1,8 @@
 import { Component, inject, signal, computed, effect, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DomainService } from '../../../shared/services/domain.service';
-import { DataFlowService, DataFlow } from '../../../shared/services/data-flow.service';
+import { DomainClient } from '../../shared/services/domain-client';
+import { DataFlowClient } from '../../shared/services/data-flow-client';
+import { DomainDataFlow, shouldDisplayAliases } from '../../shared/models/domain';
 import * as d3 from 'd3';
 
 @Component({
@@ -11,16 +12,16 @@ import * as d3 from 'd3';
   templateUrl: './domain-flow.html',
   styleUrl: './domain-flow.css',
 })
-export class DomainFlowComponent {
+export class DomainFlow {
   private route = inject(ActivatedRoute);
-  private domainService = inject(DomainService);
-  private dataFlowService = inject(DataFlowService);
+  private domainClient = inject(DomainClient);
+  private dataFlowClient = inject(DataFlowClient);
 
   @ViewChild('diagramContainer', { static: true }) private diagramContainer!: ElementRef;
 
   private domainName = signal<string | null>(null);
   domain = computed(() => {
-    const domains = this.domainService.getDomains()();
+    const domains = this.domainClient.getDomains()();
     const domainName = this.domainName();
     if (domains && domainName) {
       return domains.find(d => d.name === domainName);
@@ -28,7 +29,7 @@ export class DomainFlowComponent {
     return undefined;
   });
 
-  dataFlow = signal<DataFlow | undefined>(undefined);
+  dataFlow = signal<DomainDataFlow | undefined>(undefined);
 
   constructor() {
     this.route.paramMap.subscribe(params => {
@@ -38,7 +39,7 @@ export class DomainFlowComponent {
     effect(() => {
       const currentDomain = this.domain();
       if (currentDomain && currentDomain.dataFlowFile) {
-        this.dataFlowService.getDataFlow(currentDomain.dataFlowFile).subscribe(data => {
+        this.dataFlowClient.getDataFlow(currentDomain.dataFlowFile).subscribe(data => {
           this.dataFlow.set(data);
         });
       }
@@ -52,7 +53,7 @@ export class DomainFlowComponent {
     });
   }
 
-  private renderDiagram(data: DataFlow): void {
+  private renderDiagram(data: DomainDataFlow): void {
     const width = 800;
     const height = 600;
 
@@ -96,9 +97,25 @@ export class DomainFlowComponent {
       .selectAll('text')
       .data(data.nodes)
       .join('text')
+      .attr('class', 'node-label')
       .text((d: any) => d.id)
       .attr('x', -25)
       .attr('y', 30);
+
+    // Add alias text below service name (only when different from domain name)
+    const aliasText = svg.append('g')
+      .selectAll('text')
+      .data(data.nodes)
+      .join('text')
+      .attr('class', 'node-alias')
+      .text((d: any) => {
+        if (shouldDisplayAliases(d, data.domain)) {
+          return `(${d.aliases?.join(', ')})`;
+        }
+        return '';
+      })
+      .attr('x', -25)
+      .attr('y', 45);
 
     simulation.on('tick', () => {
       link
@@ -112,6 +129,9 @@ export class DomainFlowComponent {
         .attr('cy', (d: any) => d.y);
 
       text
+        .attr('transform', (d: any) => `translate(${d.x},${d.y})`);
+
+      aliasText
         .attr('transform', (d: any) => `translate(${d.x},${d.y})`);
     });
   }

@@ -19,11 +19,17 @@
     },
     {
       "id": "JPharm",
-      "modifies": false
+      "modifies": false,
+      "aliases": [
+        "References"
+      ]
     },
     {
       "id": "CMS",
-      "modifies": false
+      "modifies": false,
+      "aliases": [
+        "References"
+      ]
     },
     {
       "id": "Databricks",
@@ -31,7 +37,17 @@
     },
     {
       "id": "CI",
-      "modifies": false
+      "modifies": false,
+      "aliases": [
+        "References"
+      ]
+    },
+    {
+      "id": "CDI",
+      "modifies": false,
+      "aliases": [
+        "References"
+      ]
     }
   ],
   "edges": [
@@ -62,9 +78,16 @@
     {
       "source": "JPharm",
       "target": "CI"
+    },
+    {
+      "source": "CMS",
+      "target": "CDI"
     }
   ],
   "initialization": {
-    "services": ["Data Acquisition Framework", "Commercial Items FTP Ingest"]
+    "services": [
+      "Data Acquisition Framework",
+      "Commercial Items FTP Ingest"
+    ]
   }
 }

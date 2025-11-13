@@ -11,6 +11,6 @@
         "division": "LS&H",
         "sub-division": "R&D",
         "description": "Represents financial deals including mergers, acquisitions, joint ventures, partnerships in Life Sciences & Healthcare sector",
-        "dataFlowFile": null
+        "dataFlowFile": "deals-data-flow.json"
     }
 ]

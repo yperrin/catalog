@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://catalog.example.com/schemas/domain-data-flow.json",
+  "title": "DomainDataFlow",
+  "description": "Complete data flow graph for a single domain, including services, connections, and service-specific aliases",
+  "type": "object",
+  "required": ["domain", "nodes", "edges", "initialization"],
+  "properties": {
+    "domain": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Canonical domain name (must match a Domain.name from domains.json)",
+      "examples": ["Commercial Items", "Deals"]
+    },
+    "nodes": {
+      "type": "array",
+      "description": "Services that process this domain",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/DataFlowNode"
+      }
+    },
+    "edges": {
+      "type": "array",
+      "description": "Directed connections between services showing data flow",
+      "items": {
+        "$ref": "#/definitions/DataFlowEdge"
+      }
+    },
+    "initialization": {
+      "type": "object",
+      "description": "Entry point services for this domain",
+      "required": ["services"],
+      "properties": {
+        "services": {
+          "type": "array",
+          "description": "Service names that initiate processing for this domain (must reference node IDs)",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "examples": [
+            ["Data Acquisition Framework"],
+            ["Data Acquisition Framework", "Commercial Items FTP Ingest"]
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "DataFlowNode": {
+      "type": "object",
+      "required": ["id", "modifies"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Service name (must match a Service.name from services.json)"
+        },
+        "modifies": {
+          "type": "boolean",
+          "description": "Whether this service modifies the domain data"
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Optional array of service-specific names for the domain"
+        }
+      },
+      "additionalProperties": false
+    },
+    "DataFlowEdge": {
+      "type": "object",
+      "required": ["source", "target"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Source service name (must match a DataFlowNode.id in this flow)"
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Target service name (must match a DataFlowNode.id in this flow)"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "examples": [
+    {
+      "domain": "Commercial Items",
+      "nodes": [
+        {
+          "id": "Data Acquisition Framework",
+          "modifies": false
+        },
+        {
+          "id": "OCR",
+          "modifies": false,
+          "aliases": ["Commercial Items"]
+        },
+        {
+          "id": "Commercial Items Master",
+          "modifies": true
+        },
+        {
+          "id": "JPharm",
+          "modifies": false,
+          "aliases": ["References", "Citations"]
+        },
+        {
+          "id": "CMS",
+          "modifies": false
+        }
+      ],
+      "edges": [
+        {
+          "source": "Data Acquisition Framework",
+          "target": "OCR"
+        },
+        {
+          "source": "OCR",
+          "target": "Commercial Items Master"
+        },
+        {
+          "source": "Commercial Items Master",
+          "target": "JPharm"
+        },
+        {
+          "source": "Commercial Items Master",
+          "target": "CMS"
+        }
+      ],
+      "initialization": {
+        "services": ["Data Acquisition Framework"]
+      }
+    }
+  ]
+}
