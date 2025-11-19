@@ -7,14 +7,10 @@
     },
     {
       "id": "Deals Master",
-      "modifies": false
+      "modifies": true
     },
     {
       "id": "JPharm",
-      "modifies": false
-    },
-    {
-      "id": "CMS",
       "modifies": false
     },
     {
@@ -22,11 +18,11 @@
       "modifies": false
     },
     {
-      "id": "CI",
+      "id": "CCI",
       "modifies": false
     },
     {
-      "id": "CDDI",
+      "id": "CPI",
       "modifies": false
     },
     {
@@ -45,23 +41,19 @@
     },
     {
       "source": "Deals Master",
-      "target": "CMS"
-    },
-    {
-      "source": "Deals Master",
       "target": "Databricks"
     },
     {
       "source": "JPharm",
-      "target": "CI"
+      "target": "CCI"
+    },
+    {
+      "source": "JPharm",
+      "target": "CPI"
     },
     {
       "source": "JPharm",
       "target": "CDI"
-    },
-    {
-      "source": "CMS",
-      "target": "CDDI"
     }
   ],
   "initialization": {

@@ -36,7 +36,7 @@
       "modifies": false
     },
     {
-      "id": "CI",
+      "id": "CCI",
       "modifies": false,
       "aliases": [
         "References"
@@ -44,6 +44,34 @@
     },
     {
       "id": "CDI",
+      "modifies": false,
+      "aliases": [
+        "References"
+      ]
+    },
+    {
+      "id": "CPI",
+      "modifies": false,
+      "aliases": [
+        "References"
+      ]
+    },
+    {
+      "id": "CDDI",
+      "modifies": false,
+      "aliases": [
+        "References"
+      ]
+    },
+    {
+      "id": "CTI",
+      "modifies": false,
+      "aliases": [
+        "References"
+      ]
+    },
+    {
+      "id": "CDHI",
       "modifies": false,
       "aliases": [
         "References"
@@ -77,11 +105,27 @@
     },
     {
       "source": "JPharm",
-      "target": "CI"
+      "target": "CCI"
+    },
+    {
+      "source": "JPharm",
+      "target": "CDI"
+    },
+    {
+      "source": "JPharm",
+      "target": "CPI"
+    },
+    {
+      "source": "JPharm",
+      "target": "CTI"
+    },
+    {
+      "source": "JPharm",
+      "target": "CDHI"
     },
     {
       "source": "CMS",
-      "target": "CDI"
+      "target": "CDDI"
     }
   ],
   "initialization": {

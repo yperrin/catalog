@@ -12,5 +12,12 @@
         "sub-division": "R&D",
         "description": "Represents financial deals including mergers, acquisitions, joint ventures, partnerships in Life Sciences & Healthcare sector",
         "dataFlowFile": "deals-data-flow.json"
+    },
+    {
+        "name": "Devices",
+        "division": "LS&H",
+        "sub-division": "R&D",
+        "description": "Represents Digital heatlh devices and other medical devices used in the Life Sciences & Healthcare sector",
+        "dataFlowFile": "devices-data-flow.json"
     }
 ]

@@ -1,0 +1,46 @@
+{
+  "domain": "Deals",
+  "nodes": [
+    {
+      "id": "Commercial Items Master",
+      "modifies": false
+    },
+    {
+      "id": "Clinical Trials Master",
+      "modifies": false
+    },
+    {
+      "id": "Device Master",
+      "modifies": true
+    },
+    {
+      "id": "Databricks",
+      "modifies": false
+    },
+    {
+      "id": "CDHI",
+      "modifies": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "Commercial Items Master",
+      "target": "Device Master"
+    },
+    {
+      "source": "Clinical Trials Master",
+      "target": "Device Master"
+    },
+    {
+      "source": "Device Master",
+      "target": "Databricks"
+    },
+    {
+      "source": "Databricks",
+      "target": "CDHI"
+    }
+  ],
+  "initialization": {
+    "services": ["Commercial Items Master", "Clinical Trials Master"]
+  }
+}

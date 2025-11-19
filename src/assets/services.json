@@ -56,8 +56,43 @@
     "content": true
   },
   {
-    "name": "CI",
-    "description": "Cortellis Intelligence end-user platform",
+    "name": "CCI",
+    "description": "Cortellis Competitive Intelligence end-user platform",
+    "division": "LS&H",
+    "sub-division": "R&D",
+    "content": false
+  },
+  {
+    "name": "CDI",
+    "description": "Cortellis Deals Intelligence end-user platform",
+    "division": "LS&H",
+    "sub-division": "R&D",
+    "content": false
+  },
+  {
+    "name": "CPI",
+    "description": "Cortellis Product Intelligence end-user platform",
+    "division": "LS&H",
+    "sub-division": "R&D",
+    "content": false
+  },
+  {
+    "name": "CTI",
+    "description": "Cortellis Clinical Trials Intelligence end-user platform",
+    "division": "LS&H",
+    "sub-division": "R&D",
+    "content": false
+  },
+  {
+    "name": "CDHI",
+    "description": "Cortellis Digital Health Intelligence end-user platform",
+    "division": "LS&H",
+    "sub-division": "R&D",
+    "content": false
+  },
+  {
+    "name": "CDDI",
+    "description": "Cortellis Drug Discovery Intelligence end-user platform",
     "division": "LS&H",
     "sub-division": "R&D",
     "content": false
